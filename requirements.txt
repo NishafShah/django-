@@ -1,23 +1,6 @@
-# update_requirements.py
+Django==3.0.6
+Pillow==7.1.2
+psycopg2==2.8.5
+psycopg2-binary==2.8.5
+pytz==2020.1
 
-def fix_psycopg2_issue(req_path="requirements.txt"):
-    with open(req_path, "r") as file:
-        lines = file.readlines()
-
-    new_lines = []
-    for line in lines:
-        if "psycopg2" in line and "psycopg2-binary" not in line:
-            # Skip the plain psycopg2 line
-            continue
-        new_lines.append(line)
-
-    # Add psycopg2-binary if not already present
-    if not any("psycopg2-binary" in line for line in new_lines):
-        new_lines.append("psycopg2-binary>=2.8.6,<3\n")
-
-    with open(req_path, "w") as file:
-        file.writelines(new_lines)
-
-    print("✅ requirements.txt has been updated to use psycopg2-binary.")
-
-fix_psycopg2_issue()
